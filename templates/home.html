@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">My To-Do List</h1>
+        <a href="{% url 'add_todo' %}" class="btn btn-success">
+            <i class="bi bi-plus-lg"></i> Add To-Do
+        </a>
+    </div>
+
+    {% if todo %}
+    <div class="list-group shadow-sm">
+        {% for t in todo %}
+        <div class="list-group-item p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1 fw-semibold">{{ t.title }}</h5>
+                    <p class="mb-2 text-muted">{{ t.description|truncatewords:15 }}</p>
+
+                    {% if t.status %}
+                    <span class="badge bg-success">Completed</span>
+                    {% else %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                    {% endif %}
+                </div>
+
+                <a href="{% url 'view_todo' t.id %}" class="btn btn-outline-primary">
+                    View
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center">
+        <h4 class="mb-0">No To-Do items available.</h4>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
