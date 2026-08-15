@@ -5,7 +5,7 @@ from .models import Todo
 
 # get all
 def todo_list(request):
-    todo = Todo.objects.all()
+    todo = Todo.objects.all().order_by('id')
     return render(request, 'home.html', {'todo': todo})
 
 # get one using ID
